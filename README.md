@@ -1,6 +1,6 @@
 # go-practice
 
-## Fundamental 1
+## Go-Introduction
 ``` ### Data types, variable, condition, loopings ```
 ``` Challange : SquareCube
 Buatlah looping berkondisi dengan variable n sebagai penentu maksimal number loopingnya (Iterasi dari 1 sampai n). Input n dinamis, tidak statis/hardcode.
@@ -17,4 +17,4 @@ Notes:
 1. Kuadrat sempurna: Hasil dari pengkuadratan bilangan bulat. Dengan kata lain, sebuah bilangan adalah kuadrat sempurna jika ia bisa ditulis sebagai kuadrat dari bilangan bulat lainnya. Contoh, 16 adalah kuadrat sempurna karena 4² = 16. Demikian pula, 25 adalah kuadrat sempurna karena 5² = 25.
 2. Kubus sempurna adalah hasil dari perkalian bilangan bulat sebanyak tiga kali (pengkubusan). Sebuah bilangan adalah kubus sempurna jika ia bisa ditulis sebagai kubus dari bilangan bulat lainnya. Contoh, 27 adalah kubus sempurna karena 3³ = 27.
 ```
-## Fundamental 2
+## Fundamental-1

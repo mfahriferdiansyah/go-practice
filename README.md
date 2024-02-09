@@ -19,9 +19,10 @@ Notes:
 ```
 ## Fundamental-1
 ``` ### Data types collections ```
-```Personal Notes: Komputer menyimpan suatu data pada memori, setiap memori memiliki alamat tersendiri. Pointer pada Go memberikan akses bagi pengguna untuk memanipulasi memori. Ketika ada Variabel A dengan Value 1 disimpan pada memori 0xc00001, kita bisa membuat sebuah Variabel PointerA dengan Value berisi alamat memori Variabel A. Sehingga, ketika kita memanggil PointerA, akan mengembalikan sebuah alamat: 0xc00001. Ampersan (*) digunakan untuk melihat nilai yang tersimpan pada suatu alamat memori. Sehingga ketika kita memanggil *PointerA akan mengembalikan nilai dari Variabel A. Karena kita sedang menunjuk alamat memori dari 0xc00001 dari value yang tersimpan pada Variabel PointerA. ```
 ``` Challange count the character
 Buatlah looping dengan variable yang berisi string suatu kalimat dan pecahlah kalimat tersebut menjadi 1 per 1 kata
 
 Setelah sudah dipecah, lakukan perhitungan munculnya kata dari variable tersebut dengan cara mapping golang
+
+Personal Notes: Komputer menyimpan suatu data pada memori, setiap memori memiliki alamat tersendiri. Pointer pada Go memberikan akses bagi pengguna untuk memanipulasi memori. Ketika ada Variabel A dengan Value 1 disimpan pada memori 0xc00001, kita bisa membuat sebuah Variabel PointerA dengan Value berisi alamat memori Variabel A. Sehingga, ketika kita memanggil PointerA, akan mengembalikan sebuah alamat: 0xc00001. Ampersan (*) digunakan untuk melihat nilai yang tersimpan pada suatu alamat memori. Sehingga ketika kita memanggil *PointerA akan mengembalikan nilai dari Variabel A. Karena kita sedang menunjuk alamat memori dari 0xc00001 dari value yang tersimpan pada Variabel PointerA.
 ```

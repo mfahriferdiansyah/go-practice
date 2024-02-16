@@ -3,5 +3,6 @@ go 1.21.6
 use (
   ./go-introduction
   ./fundamental-1
+  ./fundamental-2
 )
 

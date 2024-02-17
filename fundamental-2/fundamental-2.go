@@ -14,7 +14,8 @@ func main() {
 
 	if err != nil {
 		fmt.Println("==========================================")
-		fmt.Println("Student name not found, available student: ")
+		fmt.Printf("%s \n", err)
+		fmt.Println("Available student: ")
 		for _, s := range StudentList {
 			fmt.Printf("Name : %s \n", s.Name)
 		}

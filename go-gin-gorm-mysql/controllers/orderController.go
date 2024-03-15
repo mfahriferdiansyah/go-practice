@@ -4,6 +4,7 @@ import (
 	"go-gin-gorm-mysql/database"
 	"go-gin-gorm-mysql/models"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -52,12 +53,28 @@ func GetOrderById(c *gin.Context) {
 func UpdateOrder(c *gin.Context) {
 	db := database.GetDB()
 
-	orderId := c.Param("id")
+	orderIdStr := c.Param("id")
+	orderId, err := strconv.Atoi(orderIdStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Invalid order ID"})
+		return
+	}
 
 	Order := models.Order{}
 	c.ShouldBindJSON(&Order)
 
-	if err := db.Where("id = ?", orderId).Updates(&Order).Error; err != nil {
+	Order.ID = uint(orderId)
+
+	for i := range Order.Items {
+		Order.Items[i].OrderID = uint(orderId)
+	}
+
+	if err := db.Debug().Where("order_id = ?", orderId).Delete(models.Item{}).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+
+	if err := db.Debug().Updates(&Order).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}

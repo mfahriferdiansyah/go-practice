@@ -50,3 +50,11 @@ Jika data nama atau absen yang diinput pada CLI tidak tersedia pada program, mis
 ```
 Buatlah login dan halaman biodata dengan data statis yang sudah diatur pada backend golang kalian. Dan buatlah kondisi pada backend nya dimana data statis akan tergenerate pada halaman index sesuai dengan email yang diinput pada saat form login.
 ```
+
+## FINAL-PROJECT
+``` LINK DEPLOYMENT RAILWAY ADA PADA COMMENT CLASSROOM ```
+```
+Postman Environtmant: BASIC API - FAHRI
+base_url
+access_token
+```

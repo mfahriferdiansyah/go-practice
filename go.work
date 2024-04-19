@@ -1,8 +1,9 @@
 go 1.21.6
 
 use (
-  ./go-introduction
-  ./fundamental-1
-  ./fundamental-2
+	./final-project
+	./fundamental-1
+	./fundamental-2
+	./go-gin-gorm-mysql
+	./go-introduction
 )
-

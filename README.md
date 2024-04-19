@@ -44,3 +44,9 @@ Buat logic untuk menampilkan/generate data peserta dari cli by name, contoh cli 
 Buatlah looping yang memproses slice of string dari beberapa nama peserta, dimana jika nama yg di ketik pada cli sama dengan yang ada di data peserta maka akan dapat index dari data pesertanya dan di append pada data baru untuk ditampilkan pada CLI atau terminal.
 Jika data nama atau absen yang diinput pada CLI tidak tersedia pada program, misal go run main.go Fitri atau go run main.go 1 maka bisa dihandle dengan pesan "Data dengan nama/absen tsb tidak tersedia".
 ```
+
+## WEB-SERVER
+``` ### net/http, gin ```
+```
+Buatlah login dan halaman biodata dengan data statis yang sudah diatur pada backend golang kalian. Dan buatlah kondisi pada backend nya dimana data statis akan tergenerate pada halaman index sesuai dengan email yang diinput pada saat form login.
+```

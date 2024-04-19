@@ -2,9 +2,6 @@ package models
 
 import (
 	"time"
-
-	"github.com/asaskevich/govalidator"
-	"gorm.io/gorm"
 )
 
 type Variant struct {
@@ -18,14 +15,14 @@ type Variant struct {
 	UpdatedAt   time.Time
 }
 
-func (m *Variant) BeforeCreate(tx *gorm.DB) (err error) {
-	_, errCreate := govalidator.ValidateStruct(m)
+// func (m *Variant) BeforeCreate(tx *gorm.DB) (err error) {
+// 	_, errCreate := govalidator.ValidateStruct(m)
 
-	if errCreate != nil {
-		err = errCreate
-		return
-	}
+// 	if errCreate != nil {
+// 		err = errCreate
+// 		return
+// 	}
 
-	err = nil
-	return
-}
+// 	err = nil
+// 	return
+// }

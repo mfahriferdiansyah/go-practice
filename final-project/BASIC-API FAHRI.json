@@ -1,0 +1,474 @@
+{
+	"info": {
+		"_postman_id": "36a44efe-4b9d-4857-9720-20185a94c1f3",
+		"name": "Final Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24259229",
+		"_collection_link": "https://lunar-water-85556-1.postman.co/workspace/GO-SESI-9~766759d7-b8d2-45e7-b6a3-fdcb0cd3e25d/collection/24259229-36a44efe-4b9d-4857-9720-20185a94c1f3?action=share&source=collection_link&creator=24259229"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "fitri@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Fitri Ayu",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "ferdi@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Variants",
+					"item": [
+						{
+							"name": "Get All",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/products/variants",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"products",
+										"variants"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by UUID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/products/variants/:uuid",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"products",
+										"variants",
+										":uuid"
+									],
+									"variable": [
+										{
+											"key": "uuid",
+											"value": "a2c5407e-41b6-4bab-871c-9efc81dec4bb"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "variant_name",
+											"value": "Asus Air M1",
+											"type": "text"
+										},
+										{
+											"key": "quantity",
+											"value": "100",
+											"type": "text"
+										},
+										{
+											"key": "product_id",
+											"value": "1",
+											"description": "uuid of product",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/products/variants",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"products",
+										"variants"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "variant_name",
+											"value": "Tes Judul",
+											"description": "string",
+											"type": "text"
+										},
+										{
+											"key": "quantity",
+											"value": "8",
+											"description": "integer",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/products/variants/:uuid",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"products",
+										"variants",
+										":uuid"
+									],
+									"variable": [
+										{
+											"key": "uuid",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pbmppQG1haWwuY29tIiwiZXhwIjoiMjAyMy0wOC0xN1QxODoyMzo0My40MzI4MSswNzowMCIsImlkIjoxfQ.yQh8tJqeeLKNyT2sfjAc2yR-WBCv6hva9iCIlTVZhgQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://go-product-variant-production.up.railway.app/products/variants/:uuid",
+									"protocol": "https",
+									"host": [
+										"go-product-variant-production",
+										"up",
+										"railway",
+										"app"
+									],
+									"path": [
+										"products",
+										"variants",
+										":uuid"
+									],
+									"variable": [
+										{
+											"key": "uuid",
+											"value": "eca7ba50-504d-4a7f-b583-ca9b0f0d3d80",
+											"description": "uuid of variant"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products?limit=1&offset=0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "tes",
+									"description": "search by name",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by UUID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/:uuid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								":uuid"
+							],
+							"variable": [
+								{
+									"key": "uuid",
+									"value": "fb0fdee4-e7ac-4ec3-993a-acee75d08429"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Asus Product Minji",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/moham/Pictures/FamousFox.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Tes Nama Update",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/products/:uuid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								":uuid"
+							],
+							"variable": [
+								{
+									"key": "uuid",
+									"value": "fb0fdee4-e7ac-4ec3-993a-acee75d08429"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/:uuid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								":uuid"
+							],
+							"variable": [
+								{
+									"key": "uuid",
+									"value": "fb0fdee4-e7ac-4ec3-993a-acee75d08429"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,7 +1,7 @@
 go 1.21.6
 
 use (
-	./final--project
+	./final-project
 	./fundamental-1
 	./fundamental-2
 	./go-gin-gorm-mysql

@@ -20,12 +20,12 @@
 							"formdata": [
 								{
 									"key": "email",
-									"value": "fitri@mail.com",
+									"value": "fahri@mail.com",
 									"type": "text"
 								},
 								{
 									"key": "name",
-									"value": "Fitri Ayu",
+									"value": "fahriAyu",
 									"type": "text"
 								},
 								{
@@ -58,7 +58,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "ferdi@mail.com",
+									"value": "fahri@mail.com",
 									"type": "text"
 								},
 								{
@@ -105,13 +105,23 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/products/variants",
+									"raw": "{{base_url}}/products/variants?limit=1&offset=0",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"products",
 										"variants"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "1"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										}
 									]
 								}
 							},
@@ -135,7 +145,7 @@
 									"variable": [
 										{
 											"key": "uuid",
-											"value": "a2c5407e-41b6-4bab-871c-9efc81dec4bb"
+											"value": "c1260dd3-6342-4279-a9d7-3fc02e34cee7"
 										}
 									]
 								}
@@ -162,7 +172,7 @@
 									"formdata": [
 										{
 											"key": "variant_name",
-											"value": "Asus Air M1",
+											"value": "Asus Air M12",
 											"type": "text"
 										},
 										{
@@ -172,7 +182,7 @@
 										},
 										{
 											"key": "product_id",
-											"value": "1",
+											"value": "479911d3-c95b-4479-b0f0-8a0809b7552b",
 											"description": "uuid of product",
 											"type": "text"
 										}
@@ -236,7 +246,7 @@
 									"variable": [
 										{
 											"key": "uuid",
-											"value": ""
+											"value": "c1260dd3-6342-4279-a9d7-3fc02e34cee7"
 										}
 									]
 								}
@@ -251,7 +261,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pbmppQG1haWwuY29tIiwiZXhwIjoiMjAyMy0wOC0xN1QxODoyMzo0My40MzI4MSswNzowMCIsImlkIjoxfQ.yQh8tJqeeLKNyT2sfjAc2yR-WBCv6hva9iCIlTVZhgQ",
+											"value": "{{access_token}}",
 											"type": "string"
 										}
 									]
@@ -259,13 +269,9 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "https://go-product-variant-production.up.railway.app/products/variants/:uuid",
-									"protocol": "https",
+									"raw": "{{base_url}}/products/variants/:uuid",
 									"host": [
-										"go-product-variant-production",
-										"up",
-										"railway",
-										"app"
+										"{{base_url}}"
 									],
 									"path": [
 										"products",
@@ -275,7 +281,7 @@
 									"variable": [
 										{
 											"key": "uuid",
-											"value": "eca7ba50-504d-4a7f-b583-ca9b0f0d3d80",
+											"value": "c1260dd3-6342-4279-a9d7-3fc02e34cee7",
 											"description": "uuid of variant"
 										}
 									]
@@ -291,7 +297,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/products?limit=1&offset=0",
+							"raw": "{{base_url}}/products?limit=1&offset=0&search=tes",
 							"host": [
 								"{{base_url}}"
 							],
@@ -304,14 +310,13 @@
 									"value": "1"
 								},
 								{
-									"key": "search",
-									"value": "tes",
-									"description": "search by name",
-									"disabled": true
-								},
-								{
 									"key": "offset",
 									"value": "0"
+								},
+								{
+									"key": "search",
+									"value": "tes",
+									"description": "search by name"
 								}
 							]
 						}
@@ -335,7 +340,7 @@
 							"variable": [
 								{
 									"key": "uuid",
-									"value": "fb0fdee4-e7ac-4ec3-993a-acee75d08429"
+									"value": "479911d3-c95b-4479-b0f0-8a0809b7552b"
 								}
 							]
 						}
@@ -362,13 +367,13 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "Asus Product Minji",
+									"value": "Asus Product Minji 2",
 									"type": "text"
 								},
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/moham/Pictures/FamousFox.jpg"
+									"src": "/C:/Users/moham/Pictures/CK 4.png"
 								}
 							]
 						},
@@ -404,13 +409,13 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "Tes Nama Update",
+									"value": "Tes Nama Update 3",
 									"type": "text"
 								},
 								{
 									"key": "file",
-									"value": "",
-									"type": "text",
+									"type": "file",
+									"src": "/C:/Users/moham/Pictures/AI.png",
 									"disabled": true
 								}
 							]
@@ -427,7 +432,7 @@
 							"variable": [
 								{
 									"key": "uuid",
-									"value": "fb0fdee4-e7ac-4ec3-993a-acee75d08429"
+									"value": "479911d3-c95b-4479-b0f0-8a0809b7552b"
 								}
 							]
 						}
@@ -461,7 +466,7 @@
 							"variable": [
 								{
 									"key": "uuid",
-									"value": "fb0fdee4-e7ac-4ec3-993a-acee75d08429"
+									"value": "479911d3-c95b-4479-b0f0-8a0809b7552b"
 								}
 							]
 						}

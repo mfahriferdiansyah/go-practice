@@ -4,11 +4,12 @@ import (
 	db "final-project/database"
 	"final-project/helpers"
 	"final-project/models"
+	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	jwt5 "github.com/golang-jwt/jwt/v5"
-	"github.com/google/uuid"
 )
 
 func CreateProduct(ctx *gin.Context) {
@@ -16,11 +17,19 @@ func CreateProduct(ctx *gin.Context) {
 
 	userData := ctx.MustGet("user").(jwt5.MapClaims)
 
-	userID := uint(userData["id"].(float64))
+	userUUID := userData["uuid"].(string)
 
 	var ProductReq models.ProductRequest
 	if err := ctx.ShouldBind(&ProductReq); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if ProductReq.File == nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error":   "Bad request",
+			"message": "File is required.",
+		})
 		return
 	}
 
@@ -32,15 +41,13 @@ func CreateProduct(ctx *gin.Context) {
 		return
 	}
 
-	newUUID := uuid.New()
-	Product := models.Product{
-		UUID:     newUUID.String(),
-		Name:     ProductReq.Name,
-		ImageUrl: uploadResult,
-		AdminID:  userID,
+	Product := models.ProductCreation{
+		Name:      ProductReq.Name,
+		ImageUrl:  uploadResult,
+		AdminUUID: userUUID,
 	}
 
-	err = db.Debug().Create(&Product).Error
+	err = db.Debug().Omit("Admin", "Variants").Create(&Product).Error
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad request",
@@ -57,19 +64,13 @@ func CreateProduct(ctx *gin.Context) {
 func UpdateProduct(ctx *gin.Context) {
 	db := db.GetDB()
 
-	userData := ctx.MustGet("user").(jwt5.MapClaims)
-	contentType := helpers.HttpContent(ctx)
-	Product := models.Product{}
-
-	productUUID := ctx.Param("productUUID")
-	userID := uint(userData["id"].(float64))
-
-	if contentType == appJSON {
-		ctx.ShouldBindJSON(&Product)
-	} else {
-		ctx.ShouldBind(&Product)
+	var ProductReq models.ProductRequest
+	if err := ctx.ShouldBind(&ProductReq); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
+	productUUID := ctx.Param("productUUID")
 	var getProduct models.Product
 	if err := db.Model(&getProduct).Where("uuid = ?", productUUID).First(&getProduct).Error; err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
@@ -79,46 +80,76 @@ func UpdateProduct(ctx *gin.Context) {
 		return
 	}
 
-	Product.ID = uint(getProduct.ID)
-	Product.AdminID = userID
+	imageUrl := getProduct.ImageUrl
+	if ProductReq.File != nil {
+		fileName := helpers.RemoveExtension(ProductReq.File.Filename)
 
-	updateData := models.Product{
-		Name:     Product.Name,
-		ImageUrl: Product.ImageUrl,
+		uploadResult, err := helpers.UploadFile(ProductReq.File, fileName)
+		if err != nil {
+			ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		imageUrl = uploadResult
 	}
 
-	if err := db.Model(&Product).Where("uuid = ?", productUUID).Updates(updateData).Error; err != nil {
+	productName := getProduct.Name
+	if ProductReq.Name != "" {
+		productName = ProductReq.Name
+	}
+
+	if ProductReq.File == nil && ProductReq.Name == "" {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad request",
-			"message": err.Error(),
+			"message": "Please fill atleast 1 column.",
+		})
+	}
+
+	updateData := models.Product{
+		Name:     productName,
+		ImageUrl: imageUrl,
+	}
+
+	if err := db.Where("uuid = ?", productUUID).Updates(&updateData).Error; err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error":   "Bad request",
+			"message": "Error in Updating product.",
 		})
 		return
 	}
 
-	var updatedProduct models.Product
-	if err := db.Where("uuid = ?", productUUID).First(&updatedProduct).Error; err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{
-			"error":   "Could not retrieve updated book data",
-			"message": err.Error(),
-		})
-		return
-	}
-
-	ctx.JSON(http.StatusOK, gin.H{
-		"data": updatedProduct,
+	ctx.JSON(http.StatusCreated, gin.H{
+		"message": "Product updated!",
 	})
 }
 
 func GetProducts(ctx *gin.Context) {
 	db := db.GetDB()
 
+	offset, limit := helpers.GetPagination(ctx)
+	name := ctx.Query("search")
+
 	results := []models.Product{}
 
-	err := db.Debug().Find(&results).Error
+	query := db.Debug().Limit(limit).Offset(offset).Preload("Admin").Preload("Variants")
+
+	if name != "" {
+		query = query.Where("LOWER(name) LIKE ?", "%"+strings.ToLower(name)+"%")
+	}
+
+	err := query.Find(&results).Error
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad request",
 			"message": err.Error(),
+		})
+		return
+	}
+
+	if len(results) == 0 {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"error":   "Data not found",
+			"message": fmt.Sprintf("No products found matching the search query '%s'", name),
 		})
 		return
 	}
@@ -134,11 +165,19 @@ func GetProductByUUID(ctx *gin.Context) {
 	results := models.Product{}
 	productUUID := ctx.Param("productUUID")
 
-	err := db.Debug().Where("UUID = ?", productUUID).Find(&results).Error
+	err := db.Debug().Preload("Admin").Preload("Variants").Where("UUID = ?", productUUID).Find(&results).Error
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad request",
 			"message": err.Error(),
+		})
+		return
+	}
+
+	if results.ID == 0 {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"error":   "Data not found",
+			"message": "No product found with UUID: " + productUUID,
 		})
 		return
 	}

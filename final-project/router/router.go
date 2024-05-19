@@ -21,7 +21,7 @@ func RouterSetup() *gin.Engine {
 		productRouter.GET("/variants/:variantUUID", controllers.GetVariantByUUID)
 		productRouter.GET("/variants/", controllers.GetVariants)
 
-		productRouter.POST("/variants/", middleware.Authentication(), controllers.CreateVariant)
+		productRouter.POST("/variants/", middleware.Authentication(), middleware.CreateVariantAuthorization(), controllers.CreateVariant)
 		productRouter.PUT("/variants/:variantUUID", middleware.Authentication(), middleware.VariantAuthorization(), controllers.UpdateVariant)
 		productRouter.DELETE("/variants/:variantUUID", middleware.Authentication(), middleware.VariantAuthorization(), controllers.DeleteVariant)
 

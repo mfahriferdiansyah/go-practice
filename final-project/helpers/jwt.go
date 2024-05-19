@@ -11,11 +11,11 @@ import (
 
 var secretKey = "your-256-bit-secret"
 
-func GenerateToken(id uint, email string) string {
+func GenerateToken(uuid string, email string) string {
 	claims := jwt.MapClaims{
-		"id":    id,
+		"uuid":  uuid,
 		"email": email,
-		"exp":   time.Now().Add(time.Minute * 10),
+		"exp":   time.Now().Add(time.Hour * 24),
 	}
 
 	parseToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

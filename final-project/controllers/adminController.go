@@ -7,7 +7,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 )
 
 var (
@@ -24,9 +23,6 @@ func Register(ctx *gin.Context) {
 	} else {
 		ctx.ShouldBind(&Admin)
 	}
-
-	newUUID := uuid.New()
-	Admin.UUID = newUUID.String()
 
 	err := db.Debug().Create(&Admin).Error
 	if err != nil {
@@ -82,7 +78,7 @@ func Login(ctx *gin.Context) {
 		return
 	}
 
-	token := helpers.GenerateToken(Admin.ID, Admin.Email)
+	token := helpers.GenerateToken(Admin.UUID, Admin.Email)
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"token": token,

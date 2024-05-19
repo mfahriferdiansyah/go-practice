@@ -17,7 +17,10 @@ func UploadFile(fileHeader *multipart.FileHeader, fileName string) (string, erro
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	cld, err := cloudinary.NewFromParams(configs.EnvCloudName(), configs.EnvCloudAPIKey(), configs.EnvCloudAPISecret())
+	cloudName := configs.EnvCloudName()
+	cloudApiKey := configs.EnvCloudAPIKey()
+	cloudApiSecret := configs.EnvCloudAPISecret()
+	cld, err := cloudinary.NewFromParams(cloudName, cloudApiKey, cloudApiSecret)
 	if err != nil {
 		return "", err
 	}

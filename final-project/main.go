@@ -22,7 +22,7 @@ func main() {
 
 	db.ConnectDatabase()
 	r := router.RouterSetup()
-	addr := fmt.Sprintf("127.0.0.1:%s", port)
+	addr := fmt.Sprintf("0.0.0.0:%s", port)
 	if err := r.Run(addr); err != nil {
 		fmt.Printf("Failed to start server: %v", err)
 	}

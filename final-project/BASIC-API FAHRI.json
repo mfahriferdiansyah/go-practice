@@ -105,7 +105,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/products/variants?limit=1&offset=0",
+									"raw": "{{base_url}}/products/variants?limit=1&offset=0&search=tes",
 									"host": [
 										"{{base_url}}"
 									],
@@ -121,6 +121,10 @@
 										{
 											"key": "offset",
 											"value": "0"
+										},
+										{
+											"key": "search",
+											"value": "tes"
 										}
 									]
 								}
@@ -466,7 +470,7 @@
 							"variable": [
 								{
 									"key": "uuid",
-									"value": "479911d3-c95b-4479-b0f0-8a0809b7552b"
+									"value": "c443ba84-8173-45a0-803b-f2138dc5428b"
 								}
 							]
 						}
